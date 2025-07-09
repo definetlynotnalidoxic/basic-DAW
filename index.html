@@ -7,11 +7,11 @@
     <!-- Tailwind CSS CDN for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Custom styles for the DAW */
+        /* Custom styles for the DAW inspired by FL Studio */
         body {
             font-family: "Inter", sans-serif;
-            background-color: #1a202c; /* Dark background */
-            color: #e2e8f0; /* Light text */
+            background-color: #1a1a1a; /* Very dark background */
+            color: #e0e0e0; /* Light grey text */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -21,18 +21,27 @@
             box-sizing: border-box;
         }
         .daw-container {
-            background-color: #2d3748; /* Slightly lighter dark background for container */
+            background-color: #282828; /* Slightly lighter dark background for container */
             border-radius: 12px; /* Rounded corners */
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.4), 0 6px 12px -3px rgba(0, 0, 0, 0.2);
             padding: 30px;
             width: 100%;
-            max-width: 900px;
+            max-width: 960px; /* Slightly wider */
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 25px; /* Increased gap */
+            border: 1px solid #3a3a3a; /* Subtle border */
+        }
+        .section-title {
+            font-size: 1.8rem; /* Larger title */
+            font-weight: 700;
+            color: #00bfff; /* Bright blue for titles */
+            text-align: center;
+            margin-bottom: 15px;
+            text-shadow: 0 0 8px rgba(0, 191, 255, 0.3); /* Subtle glow */
         }
         .control-button {
-            padding: 10px 20px;
+            padding: 12px 25px; /* More padding */
             border-radius: 8px;
             font-weight: bold;
             transition: all 0.2s ease-in-out;
@@ -40,59 +49,67 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            gap: 10px;
+            border: none; /* No default border */
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
         .control-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4), 0 0 15px rgba(255, 255, 255, 0.1); /* Enhanced hover shadow */
         }
         .control-button:active {
             transform: translateY(0);
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
-        /* Specific button colors */
+        /* Specific button colors (FL Studio inspired) */
         #playButton {
-            background-color: #48bb78; /* Green */
+            background-color: #00cc00; /* Bright Green */
             color: #ffffff;
         }
         #playButton:hover {
-            background-color: #38a169;
+            background-color: #00e600;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4), 0 0 15px rgba(0, 204, 0, 0.5);
         }
         #recordButton {
-            background-color: #f56565; /* Red */
+            background-color: #e60000; /* Bright Red */
             color: #ffffff;
         }
         #recordButton:hover {
-            background-color: #e53e3e;
+            background-color: #ff0000;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4), 0 0 15px rgba(230, 0, 0, 0.5);
         }
         #recordButton.recording {
-            background-color: #c53030; /* Darker red when recording */
+            background-color: #cc0000; /* Darker red when recording */
             animation: pulse 1s infinite alternate;
+            box-shadow: 0 0 0 0 rgba(230, 0, 0, 0.7);
         }
         #loadAudioButton {
-            background-color: #4299e1; /* Blue */
+            background-color: #0099ff; /* Bright Blue */
             color: #ffffff;
         }
         #loadAudioButton:hover {
-            background-color: #3182ce;
+            background-color: #00bfff;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4), 0 0 15px rgba(0, 153, 255, 0.5);
         }
         #stopButton {
-            background-color: #ecc94b; /* Yellow */
-            color: #2d3748;
+            background-color: #ffcc00; /* Bright Yellow */
+            color: #333333; /* Dark text for contrast */
         }
         #stopButton:hover {
-            background-color: #d69e2e;
+            background-color: #ffdb4d;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4), 0 0 15px rgba(255, 204, 0, 0.5);
         }
 
         /* Pulse animation for recording button */
         @keyframes pulse {
             from {
-                box-shadow: 0 0 0 0 rgba(245, 101, 101, 0.7);
+                box-shadow: 0 0 0 0 rgba(230, 0, 0, 0.7);
             }
             to {
-                box-shadow: 0 0 0 10px rgba(245, 101, 101, 0);
+                box-shadow: 0 0 0 15px rgba(230, 0, 0, 0);
             }
         }
 
@@ -100,60 +117,105 @@
         input[type="range"] {
             -webkit-appearance: none;
             width: 100%;
-            height: 8px;
-            background: #4a5568; /* Darker grey for track */
+            height: 10px; /* Thicker track */
+            background: #3a3a3a; /* Darker grey for track */
             border-radius: 5px;
             outline: none;
             transition: opacity .2s;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.6);
         }
 
         input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
-            width: 20px;
-            height: 20px;
+            width: 24px; /* Larger thumb */
+            height: 24px;
             border-radius: 50%;
-            background: #63b3ed; /* Light blue thumb */
+            background: #00bfff; /* Bright blue thumb */
             cursor: pointer;
-            box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 5px rgba(0, 191, 255, 0.7); /* Glow effect */
+            border: 2px solid #ffffff; /* White border for thumb */
+            margin-top: -7px; /* Adjust thumb position */
         }
 
         input[type="range"]::-moz-range-thumb {
-            width: 20px;
-            height: 20px;
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
-            background: #63b3ed;
+            background: #00bfff;
             cursor: pointer;
-            box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 5px rgba(0, 191, 255, 0.7);
+            border: 2px solid #ffffff;
+        }
+
+        /* Tracks area styling */
+        #tracksContainer {
+            background-color: #1e1e1e; /* Even darker for tracks */
+            border: 1px solid #3a3a3a;
+            min-height: 200px; /* Taller */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        .track-item {
+            background-color: #333333; /* Dark grey for individual tracks */
+            border-left: 5px solid #00bfff; /* Blue accent bar */
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .track-item span {
+            color: #e0e0e0;
+        }
+        .track-item .type-tag {
+            background-color: #4a4a4a;
+            color: #a0a0a0;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+
+        /* Message area */
+        #messageArea {
+            background-color: #005588; /* Darker blue for messages */
+            color: #cceeff;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #0077aa;
+            font-size: 0.9rem;
         }
     </style>
 </head>
 <body class="antialiased">
     <div class="daw-container">
-        <h1 class="text-3xl font-extrabold text-center text-blue-300 mb-6">Simple Web DAW</h1>
+        <h1 class="section-title">Simple Web DAW</h1>
 
         <!-- Control Panel -->
-        <div class="flex flex-wrap justify-center gap-4 mb-6">
+        <div class="flex flex-wrap justify-center gap-5 mb-4 p-4 bg-gray-800 rounded-lg shadow-inner">
             <button id="playButton" class="control-button">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
                 </svg>
                 Play
             </button>
             <button id="stopButton" class="control-button">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h4a1 1 0 001-1V8a1 1 0 00-1-1H8z" clip-rule="evenodd" />
                 </svg>
                 Stop
             </button>
             <button id="recordButton" class="control-button">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 9a1 1 0 100 2h4a1 1 0 100-2H8z" clip-rule="evenodd" />
                 </svg>
                 Record
             </button>
-            <label for="audioFile" class="control-button bg-purple-500 hover:bg-purple-600">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <label for="audioFile" class="control-button bg-purple-600 hover:bg-purple-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
                 </svg>
                 Load Audio
@@ -161,17 +223,28 @@
             </label>
         </div>
 
-        <!-- Volume Control -->
-        <div class="flex items-center gap-4 mb-6 p-4 bg-gray-700 rounded-lg">
-            <label for="masterVolume" class="text-lg font-semibold text-gray-300 w-24">Master Volume:</label>
+        <!-- Master Volume Control -->
+        <div class="flex items-center gap-5 p-5 bg-gray-700 rounded-lg shadow-inner">
+            <label for="masterVolume" class="text-lg font-semibold text-gray-300 w-32">Master Volume:</label>
             <input type="range" id="masterVolume" min="0" max="1" step="0.01" value="0.75" class="flex-grow">
-            <span id="volumeValue" class="text-gray-400 w-10 text-right">75%</span>
+            <span id="volumeValue" class="text-gray-400 w-12 text-right font-mono">75%</span>
         </div>
 
         <!-- Tracks Area -->
-        <div id="tracksContainer" class="bg-gray-800 p-4 rounded-lg min-h-[150px] border border-gray-700">
-            <p class="text-gray-400 text-center" id="noTracksMessage">No audio tracks loaded yet. Load an audio file or record something!</p>
-            <!-- Audio tracks will be appended here -->
+        <div class="p-0 rounded-lg">
+            <h2 class="section-title text-xl mb-4">Tracks</h2>
+            <div id="tracksContainer" class="bg-gray-800 p-4 rounded-lg min-h-[200px] border border-gray-700 shadow-inner">
+                <p class="text-gray-400 text-center py-10" id="noTracksMessage">No audio tracks loaded yet. Load an audio file or record something!</p>
+                <!-- Audio tracks will be appended here -->
+            </div>
+        </div>
+
+        <!-- Simple Mixer Section Placeholder -->
+        <div class="p-0 rounded-lg">
+            <h2 class="section-title text-xl mb-4">Mixer (Coming Soon)</h2>
+            <div class="bg-gray-800 p-4 rounded-lg min-h-[100px] border border-gray-700 shadow-inner flex items-center justify-center">
+                <p class="text-gray-500 text-center">Future home for volume faders, pan controls, and effects sends.</p>
+            </div>
         </div>
 
         <!-- Message Area -->
@@ -203,7 +276,7 @@
         // Function to display messages to the user
         function showMessage(message, type = 'info') {
             messageArea.textContent = message;
-            messageArea.className = `mt-4 p-3 rounded-lg ${type === 'error' ? 'bg-red-800 text-red-100' : 'bg-blue-800 text-blue-100'}`;
+            messageArea.className = `mt-4 p-3 rounded-lg ${type === 'error' ? 'bg-red-800 text-red-100 border border-red-700' : 'bg-blue-800 text-blue-100 border border-blue-700'}`;
             messageArea.classList.remove('hidden');
             setTimeout(() => {
                 messageArea.classList.add('hidden');
@@ -335,10 +408,10 @@
             noTracksMessage.classList.add('hidden'); // Hide the "no tracks" message
 
             const trackDiv = document.createElement('div');
-            trackDiv.className = 'bg-gray-700 p-3 rounded-md mb-2 flex items-center justify-between';
+            trackDiv.className = 'track-item'; /* Use custom class for track styling */
             trackDiv.innerHTML = `
-                <span class="text-lg font-medium text-gray-200">${name}</span>
-                <span class="text-sm text-gray-400">${type === 'loaded' ? 'Loaded File' : 'Recorded'}</span>
+                <span class="text-lg font-medium">${name}</span>
+                <span class="type-tag">${type === 'loaded' ? 'Loaded File' : 'Recorded'}</span>
             `;
             tracksContainer.appendChild(trackDiv);
         }
